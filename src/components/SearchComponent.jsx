@@ -1,6 +1,13 @@
+import { useState } from "react";
+
+const SearchComponent = ({setSelectedRegion, selectedRegion }) => {
 
 
-const SearchComponent = () => {
+
+  function handleSelectedRegion (event) {
+    console.log(selectedRegion)
+    setSelectedRegion(event.target.value)
+  }
 
   function handleOnSubmit(e) {
     e.preventDefault()
@@ -22,13 +29,13 @@ const SearchComponent = () => {
 
       {/* Select Dropdown Form */}
       <form className=" mt-10 lg:mt-0">
-        <select id="countries" className="bg-dark-blue-elements text-very-light-gray-background p-3 border border-gray-300  text-sm rounded-lg focus:ring-0 focus:border-0 block w-full ">
+        <select id="countries" className="bg-dark-blue-elements text-very-light-gray-background p-3 border border-gray-300  text-sm rounded-lg focus:ring-0 focus:border-0 block w-full " onChange={handleSelectedRegion}>
           <option selected>Filter by Region</option>
-          <option value="US">Africa</option>
-          <option value="CA">America</option>
-          <option value="FR">Asia</option>
-          <option value="DE">Europe</option>
-          <option value="DE">Oceania</option>
+          <option value="Africa">Africa</option>
+          <option value="America">America</option>
+          <option value="Asia">Asia</option>
+          <option value="Europe">Europe</option>
+          <option value="Oceania">Oceania</option>
         </select>
       </form>
     </div>
