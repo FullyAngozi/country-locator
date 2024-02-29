@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import CardComponent from "./components/CardComponent";
-import Navbar from "./components/Navbar";
-import SearchComponent from "./components/SearchComponent";
+import CardComponent from "./components/CardComponent.jsx";
+import Navbar from "./components/Navbar.jsx";
+import SearchComponent from "./components/SearchComponent.jsx";
 
 function App() {
   const [countries, setCountries] = useState([]);
