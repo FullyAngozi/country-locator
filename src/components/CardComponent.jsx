@@ -10,9 +10,9 @@ const CardComponent = ({ country }) => {
       <div className="mt-8">
         <div className="w-3/4 mx-auto mb-20">
           <h2 className="font-semibold text-white text-3xl mb-5">{country.name.common}</h2>
-          <p className="text-very-light-gray-background font-light mb-2"><span className="text-white lg:text-lg">Population:</span> {country.population.toLocaleString()}</p>
-          <p className="text-very-light-gray-background font-light mb-2"><span className="text-white lg:text-lg">Region:</span> {country.region}</p>
-          <p className="text-very-light-gray-background font-light mb-2"><span className="text-white lg:text-lg">Capital:</span> {country.capital}</p>
+          <p className="text-very-light-gray-background font-light mb-2"><span className="text-white lg:text-lg font-bold">Population:</span> {country.population.toLocaleString()}</p>
+          <p className="text-very-light-gray-background font-light mb-2"><span className="text-white lg:text-lg font-bold">Region:</span> {country.region}</p>
+          <p className="text-very-light-gray-background font-light mb-2"><span className="text-white lg:text-lg font-bold">Capital:</span> {country.capital}</p>
         </div>
       </div>
     </div>
