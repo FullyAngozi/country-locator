@@ -8,6 +8,7 @@ function App() {
   const [selectedRegion, setSelectedRegion] = useState("");
   const [filteredCountries, setFilteredCountries] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isScrolling, setIsScrolling] = useState(false);
 
   useEffect(() => {
     const fetchCountriesData = async () => {
@@ -23,16 +24,6 @@ function App() {
 
     fetchCountriesData();
   }, []); // Empty dependency array means this effect runs once on mount
-
-  // In your App component
-
-  // Pass the searchQuery and setSearchQuery to the SearchComponent
-  <SearchComponent
-    setSelectedRegion={setSelectedRegion}
-    selectedRegion={selectedRegion}
-    searchQuery={searchQuery}
-    setSearchQuery={setSearchQuery}
-  />;
 
   // Update the useEffect hook to also filter based on the search query
   useEffect(() => {
@@ -53,6 +44,21 @@ function App() {
     setFilteredCountries(filtered);
   }, [countries, selectedRegion, searchQuery]);
 
+  // Add event listener to detect scroll position
+  useEffect(() => {
+    const checkScrollTop = () => {
+      setIsScrolling(window.scrollY > 200);
+    };
+
+    window.addEventListener("scroll", checkScrollTop);
+    return () => window.removeEventListener("scroll", checkScrollTop);
+  }, []); // Empty dependency array means this effect runs once on mount
+
+  // Function to scroll back to top
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <main className="bg-very-dark-blue-background min-h-screen">
       <Navbar />
@@ -69,6 +75,15 @@ function App() {
           ))}
         </div>
       </div>
+      {/* Conditionally render the scroll-to-top button */}
+      {isScrolling && (
+        <button
+          className="fixed bottom-5 right-5 bg-dark-blue-elements text-white rounded-full p-6"
+          onClick={scrollToTop}
+        >
+          Top
+        </button>
+      )}
     </main>
   );
 }
