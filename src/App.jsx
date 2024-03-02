@@ -7,6 +7,7 @@ function App() {
   const [countries, setCountries] = useState([]);
   const [selectedRegion, setSelectedRegion] = useState("");
   const [filteredCountries, setFilteredCountries] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const fetchCountriesData = async () => {
@@ -23,18 +24,34 @@ function App() {
     fetchCountriesData();
   }, []); // Empty dependency array means this effect runs once on mount
 
+  // In your App component
+
+  // Pass the searchQuery and setSearchQuery to the SearchComponent
+  <SearchComponent
+    setSelectedRegion={setSelectedRegion}
+    selectedRegion={selectedRegion}
+    searchQuery={searchQuery}
+    setSearchQuery={setSearchQuery}
+  />;
+
+  // Update the useEffect hook to also filter based on the search query
   useEffect(() => {
-    // Filter countries based on selectedRegion
-    if (selectedRegion === "") {
-      // If no region is selected, show all countries
-      setFilteredCountries(countries);
-    } else {
-      const filtered = countries.filter(
+    let filtered = countries;
+
+    if (selectedRegion) {
+      filtered = filtered.filter(
         (country) => country.region === selectedRegion
       );
-      setFilteredCountries(filtered);
     }
-  }, [countries, selectedRegion]);
+
+    if (searchQuery) {
+      filtered = filtered.filter((country) =>
+        country.name.common.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    setFilteredCountries(filtered);
+  }, [countries, selectedRegion, searchQuery]);
 
   return (
     <main className="bg-very-dark-blue-background min-h-screen">
@@ -43,8 +60,10 @@ function App() {
         <SearchComponent
           setSelectedRegion={setSelectedRegion}
           selectedRegion={selectedRegion}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
         />
-        <div className="lg:grid lg:grid-cols-3">
+        <div className="lg:grid lg:grid-cols-2 xl:grid-cols-3">
           {filteredCountries.map((country, index) => (
             <CardComponent key={index} country={country} />
           ))}
