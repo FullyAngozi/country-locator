@@ -1,9 +1,11 @@
 
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom'
+
 
 const CardComponent = ({ country }) => {
   return (
-    <div className="mt-10 max-w-sm border border-very-dark-blue-background bg-dark-blue-elements rounded-lg shadow cursor-pointer">
+    <Link to={`/country/${country.cca3}`} className="mt-10 max-w-sm border border-very-dark-blue-background bg-dark-blue-elements rounded-lg  cursor-pointer hover:shadow-2xl">
       <div className=' w-[382px] overflow-hidden h-[200px]'>
         <img src={`https://flagcdn.com/${country.cca2.toLowerCase()}.svg`} alt={country.name.common} className="rounded-t-lg w-full h-full object-cover" />
       </div>
@@ -15,19 +17,20 @@ const CardComponent = ({ country }) => {
           <p className="text-very-light-gray-background font-light mb-2"><span className="text-white lg:text-lg font-bold">Capital:</span> {country.capital}</p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
 CardComponent.propTypes = {
   country: PropTypes.shape({
     cca2: PropTypes.string,
+    cca3: PropTypes.string,
     name: PropTypes.shape({
       common: PropTypes.string,
     }),
     population: PropTypes.number,
     region: PropTypes.string,
-    capital: PropTypes.string,
+    capital: PropTypes.array,
     // Add other expected properties of the country object here
   }),
 };

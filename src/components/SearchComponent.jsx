@@ -60,8 +60,9 @@ const SearchComponent = ({ setSelectedRegion, selectedRegion, searchQuery, setSe
           id="countries"
           className="bg-dark-blue-elements text-very-light-gray-background p-3 border border-gray-300  text-sm rounded-lg focus:ring-0 focus:border-0 block w-full "
           onChange={handleSelectedRegion}
+          value={selectedRegion}
         >
-          <option selected>Filter by Region</option>
+          <option value="">Filter by Region</option>
           <option value="Africa">Africa</option>
           <option value="Americas">America</option>
           <option value="Asia">Asia</option>

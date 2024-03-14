@@ -1,7 +1,9 @@
+import { BrowserRouter as Router,Route, Routes } from "react-router-dom";
 import { useState, useEffect } from "react";
 import CardComponent from "./components/CardComponent.jsx";
 import Navbar from "./components/Navbar.jsx";
 import SearchComponent from "./components/SearchComponent.jsx";
+import CountryDetailPage from "./components/CountryDetailPage.jsx";
 
 function App() {
   const [countries, setCountries] = useState([]);
@@ -60,20 +62,26 @@ function App() {
   };
 
   return (
+    <Router>
     <main className="bg-very-dark-blue-background min-h-screen">
       <Navbar />
-      <div className="container">
+      <div className="container pb-10">
         <SearchComponent
           setSelectedRegion={setSelectedRegion}
           selectedRegion={selectedRegion}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
         />
-        <div className="lg:grid lg:grid-cols-2 xl:grid-cols-3">
-          {filteredCountries.map((country, index) => (
-            <CardComponent key={index} country={country} />
-          ))}
-        </div>
+        <Routes>
+          <Route path="/" element={
+            <div className="lg:grid lg:grid-cols-2 xl:grid-cols-3">
+              {filteredCountries.map((country, index) => (
+               <CardComponent key={index} country={country} />
+              ))}
+            </div>
+          } />
+          <Route path="/country/:cca3" element={<CountryDetailPage />} />
+        </Routes>
       </div>
       {/* Conditionally render the scroll-to-top button */}
       {isScrolling && (
@@ -85,6 +93,7 @@ function App() {
         </button>
       )}
     </main>
+  </Router>
   );
 }
 
